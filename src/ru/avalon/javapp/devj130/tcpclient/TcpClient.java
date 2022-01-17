@@ -22,13 +22,13 @@ public class TcpClient {
         NetworkMessage msg = new NetworkMessage(text);
 
         try (Socket sock = new Socket(args[0], PORT)) {
-            try (ObjectInputStream ois = new ObjectInputStream(sock.getInputStream());
-                 ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream())) {
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
+                    ObjectInputStream ois = new ObjectInputStream(sock.getInputStream())) {
                 oos.writeObject(msg);
                 msg = (NetworkMessage) ois.readObject();
-                System.out.println("Message processing time: " + msg.getProcessingTime());
+                System.out.println(msg.getProcessingPeriod());
             }
-
         }
     }
 }
